@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RevitAddIns>
+  <AddIn Type="Command">
+    <Text>PlateChanges - Command 1</Text>
+    <Description>Some description</Description>
+    <Assembly>PlateChanges\PlateChanges.dll</Assembly>
+    <FullClassName>PlateChanges.Command1</FullClassName>
+    <ClientId>32255d8e-0b91-4b77-bb74-98a2494298e4</ClientId>
+    <VendorId>com.YOUR COMPANY NAME</VendorId>
+    <VendorDescription>YOUR COMPANY NAME, YOUR COMPANY URL</VendorDescription>
+  </AddIn>
+  <AddIn Type="Command">
+    <Text>PlateChanges - Command 2</Text>
+    <Description>Some description</Description>
+    <Assembly>PlateChanges\PlateChanges.dll</Assembly>
+    <FullClassName>PlateChanges.Command2</FullClassName>
+    <ClientId>1321d33e-c24b-4146-8243-06113030a690</ClientId>
+    <VendorId>com.YOUR COMPANY NAME</VendorId>
+    <VendorDescription>YOUR COMPANY NAME, YOUR COMPANY URL</VendorDescription>
+  </AddIn>
+  <AddIn Type="Application">
+    <Name>PlateChanges</Name>
+    <Assembly>PlateChanges\PlateChanges.dll</Assembly>
+    <FullClassName>PlateChanges.App</FullClassName>
+    <ClientId>31c6e1cb-7609-49e2-bc44-3638c664a862</ClientId>
+    <VendorId>com.YOUR COMPANY NAME</VendorId>
+    <VendorDescription>YOUR COMPANY NAME, YOUR COMPANY URL</VendorDescription>
+  </AddIn>
+</RevitAddIns>
