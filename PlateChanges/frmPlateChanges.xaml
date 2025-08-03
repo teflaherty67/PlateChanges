@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Height="Auto"
         Width="Auto"
-        SizeToContent="WidthAndHeight" Title="Demolish to Phase">
+        SizeToContent="WidthAndHeight" Title="Plate Height Adjustments">
 
     <Window.Resources>
         <Style TargetType="TextBox">
@@ -24,15 +24,45 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="10"/>
             <RowDefinition Height="30"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="100"/>
-        </Grid.ColumnDefinitions>
+        </Grid.RowDefinitions>        
+
+        <Label Content="Enter plate adjustments in feet:" Grid.Row="0"  VerticalAlignment="Center" HorizontalAlignment="Left"/>
+
+        <!--Dynamic Panel-->
+        <StackPanel Grid.Row="1">
+            <StackPanel x:Name="sp"/>
+        </StackPanel>
+
+        <!--Buttons Section-->
+        <StackPanel Grid.Row="3"
+            Grid.ColumnSpan="2"
+            Orientation="Horizontal" 
+            HorizontalAlignment="Right" 
+            VerticalAlignment="Center">
+            <Button x:Name="btnOK" 
+            Content="OK" 
+            Width="75" 
+            Height="25" 
+            Margin="0,0,10,0" 
+            IsDefault="True" 
+            Click="btnOK_Click"/>
+            <Button x:Name="btnCancel" 
+            Content="Cancel" 
+            Width="75" 
+            Height="25" 
+            Margin="0,0,10,0" 
+            IsCancel="True" 
+            Click="btnCancel_Click"/>
+            <Button x:Name="btnHelp" 
+            Content="Help" 
+            Width="75" 
+            Height="25" 
+            Click="btnHelp_Click"/>
+        </StackPanel>
+
+
+
+
+
     </Grid>
-
-    <!--<Label Content="Enter plate adjustements in feet:"/>-->
-
-
-
 </Window>

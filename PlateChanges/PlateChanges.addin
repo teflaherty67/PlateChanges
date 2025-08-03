@@ -4,7 +4,7 @@
     <Text>PlateChanges - Command 1</Text>
     <Description>Some description</Description>
     <Assembly>PlateChanges\PlateChanges.dll</Assembly>
-    <FullClassName>PlateChanges.Command1</FullClassName>
+    <FullClassName>PlateChanges.cmdPlateChanges</FullClassName>
     <ClientId>32255d8e-0b91-4b77-bb74-98a2494298e4</ClientId>
     <VendorId>com.YOUR COMPANY NAME</VendorId>
     <VendorDescription>YOUR COMPANY NAME, YOUR COMPANY URL</VendorDescription>

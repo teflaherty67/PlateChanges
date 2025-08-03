@@ -1,4 +1,6 @@
-﻿namespace PlateChanges
+﻿using PlateChanges.Common;
+
+namespace PlateChanges
 {
     [Transaction(TransactionMode.Manual)]
     public class cmdPlateChanges : IExternalCommand
@@ -11,12 +13,19 @@
             Document curDoc = uidoc.Document;
 
             // get data for the form
+            List<Level> filteredLevels = Utils.GetFilteredAndSortedLevels(curDoc);
 
-            // launch the form
+            // launch the form with level data
+            frmPlateChanges curForm = new frmPlateChanges(filteredLevels);
+            curForm.Topmost = true;
 
-            // get data from the form
+            // check if user clicked OK and process the results
+            if(curForm.ShowDialog() == true)
+            {
+                // get data from the form
 
-            // process the data from the form
+                // process the data from the form
+            }
 
             return Result.Succeeded;
         }
