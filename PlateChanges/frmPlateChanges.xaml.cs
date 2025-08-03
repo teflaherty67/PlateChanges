@@ -19,7 +19,15 @@ namespace PlateChanges
     /// </summary>
     public partial class frmPlateChanges : Window
     {
+        // create list to hold the levels
         private List<Level> Levels;
+
+        // create a dictionary to hold the level-adjustment pairs
+        private Dictionary<Level, TextBox> Level_TextBoxes = new Dictionary<Level, TextBox>();
+
+        // create public property for Dictionary
+        public Dictionary<Level, double> LevelAdjustments { get; private set; }
+
         public frmPlateChanges(List<Level> levels)
         {
             // store passed data
@@ -53,6 +61,9 @@ namespace PlateChanges
                 TextBox txbLevel = new TextBox();
                 Grid.SetColumn(txbLevel, 1);
 
+                // store the TextBox reference
+                Level_TextBoxes[curLevel] = txbLevel;
+
                 // add both controls to the grid
                 levelGrid.Children.Add(lblLevel);
                 levelGrid.Children.Add(txbLevel);
@@ -68,9 +79,10 @@ namespace PlateChanges
 
         private void btnOK_Click(object sender, RoutedEventArgs e)
         {
+            LevelAdjustments = LevelAdjustmentData();
             this.DialogResult = true;
             this.Close();
-        }
+        }       
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
@@ -98,5 +110,27 @@ namespace PlateChanges
         }
 
         #endregion
+
+        private Dictionary<Level, double> LevelAdjustmentData()
+        {
+            var levelAdjustements = new Dictionary<Level, double>();
+
+            foreach (var kvp in Level_TextBoxes)
+            {
+                Level level = kvp.Key;
+                TextBox textBox = kvp.Value;
+
+                if (double.TryParse(textBox.Text, out double adjustment))
+                {
+                    levelAdjustements[level] = adjustment;
+                }
+                else
+                {
+                    levelAdjustements[level] = 0; // default to no adjustement for invalid input
+                }
+            }
+
+            return levelAdjustements;
+        }
     }
 }
