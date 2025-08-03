@@ -20,13 +20,16 @@
     
     <Grid Margin="10">
         <Grid.RowDefinitions>
-            <RowDefinition Height="30"/>
+            <RowDefinition Height="40"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="10"/>
             <RowDefinition Height="30"/>
-        </Grid.RowDefinitions>        
+        </Grid.RowDefinitions>
 
-        <Label Content="Enter plate adjustments in feet:" Grid.Row="0"  VerticalAlignment="Center" HorizontalAlignment="Left"/>
+        <StackPanel Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Left">
+            <Label Content="Enter plate adjustments in feet:"/>
+            <Label Content="(Use + to raise, - to lower)" FontSize="10" Foreground="Gray"/>
+        </StackPanel>
 
         <!--Dynamic Panel-->
         <StackPanel Grid.Row="1">
