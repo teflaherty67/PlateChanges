@@ -58,13 +58,14 @@ namespace PlateChanges.Common
 
         #region Task Dialog
 
+
         /// <summary>
         /// Displays a warning dialog to the user with custom title and message
         /// </summary>
         /// <param name="tdName">The internal name of the TaskDialog</param>
         /// <param name="tdTitle">The title displayed in the dialog header</param>
         /// <param name="textMessage">The main message content to display to the user</param>
-        internal static void TaskDialogWarning(string tdName, string tdTitle, string textMessage)
+        internal static void TaskDialogWarning(string tdName, string tdTitle, string textMessage, bool allowCancel)
         {
             // Create a new TaskDialog with the specified name
             TaskDialog m_Dialog = new TaskDialog(tdName);
@@ -81,8 +82,10 @@ namespace PlateChanges.Common
             // Set the main message content that will be displayed to the user
             m_Dialog.MainContent = textMessage;
 
-            // Add a Close button for the user to dismiss the dialog
-            m_Dialog.CommonButtons = TaskDialogCommonButtons.Close;
+            // Add appropriate buttons based on parameter
+            m_Dialog.CommonButtons = allowCancel ?
+                TaskDialogCommonButtons.Ok | TaskDialogCommonButtons.Cancel :
+                TaskDialogCommonButtons.Close;
 
             // Display the dialog and capture the result (though we don't use it for warnings)
             TaskDialogResult m_DialogResult = m_Dialog.Show();

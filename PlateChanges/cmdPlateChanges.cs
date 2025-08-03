@@ -41,43 +41,58 @@ namespace PlateChanges
 
             // check if user clicked OK and process the results
             if(curForm.ShowDialog() == true)
-            {
+            {                     
                 // get data from the form
                 Dictionary<Level, double> levelAdjustments = curForm.LevelAdjustments;
 
-                // create & start a transaction
-                using (Transaction t = new Transaction(curDoc, "Plate Height Adjustements"))
+                // validation check
+                if (ValidateElevationOrder(levelAdjustments, out string violations))
                 {
-                    // process the data from the form
-                    t.Start();                    
-
-                    // loop through the dictionary
-                    foreach(var kvp in levelAdjustments)
+                    // create & start a transaction
+                    using (Transaction t = new Transaction(curDoc, "Plate Height Adjustements"))
                     {
-                        // get the key value pairs
-                        Level level = kvp.Key;
-                        double adjustment = kvp.Value;
+                        // process the data from the form
+                        t.Start();                    
 
-                        // only adjust if value is valid
-                        if (adjustment != 0)
+                        // loop through the dictionary
+                        foreach(var kvp in levelAdjustments)
                         {
-                            level.Elevation = level.Elevation + adjustment;
+                            // get the key value pairs
+                            Level level = kvp.Key;
+                            double adjustment = kvp.Value;
 
-                            // increment the counter
-                            countAdjusted++;
+                            // only adjust if value is valid
+                            if (adjustment != 0)
+                            {
+                                level.Elevation = level.Elevation + adjustment;
+
+                                // increment the counter
+                                countAdjusted++;
+                            }
                         }
+
+                        t.Commit();
                     }
 
-                    t.Commit();
+                    // summary report
+                    Utils.TaskDialogInformation("Information", "Level Adjustments",
+                        $"{countAdjusted} level{(countAdjusted == 1 ? "" : "s")} {(countAdjusted == 1 ? "was" : "were")} adjusted.");
                 }
 
-                // summary report
-                Utils.TaskDialogInformation("Information", "Level Adjustments",
-            $"{countAdjusted} level{(countAdjusted == 1 ? "" : "s")} {(countAdjusted == 1 ? "was" : "were")} adjusted.");
-
+                else
+                {
+                   // notify the user
+                }
             }
 
-            return Result.Succeeded;
+            return Result.Succeeded;           
+        }
+
+        private bool ValidateElevationOrder(Dictionary<Level, double> levelAdjustments, out string violations)
+        {
+            // Your validation logic here
+            violations = ""; // Set this to your violation message
+            return true; // or false if violations found
         }
 
         internal static PushButtonData GetButtonData()
