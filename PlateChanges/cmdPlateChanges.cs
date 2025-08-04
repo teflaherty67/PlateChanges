@@ -36,12 +36,12 @@ namespace PlateChanges
             int countAdjusted = 0;
 
             // launch the form with level data
-            frmPlateChanges curForm = new frmPlateChanges(filteredLevels);
+            frmPlateChanges curForm = new frmPlateChanges(filteredLevels);            
             curForm.Topmost = true;
 
             // check if user clicked OK and process the results
             if(curForm.ShowDialog() == true)
-            {                     
+            {
                 // get data from the form
                 Dictionary<Level, double> levelAdjustments = curForm.LevelAdjustments;
 

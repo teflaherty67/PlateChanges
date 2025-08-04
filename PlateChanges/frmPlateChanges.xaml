@@ -7,7 +7,8 @@
         mc:Ignorable="d"
         Height="Auto"
         Width="Auto"
-        SizeToContent="WidthAndHeight" Title="Plate Height Adjustments">
+        SizeToContent="WidthAndHeight" Title="Plate Height Adjustments"
+        WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
         <Style TargetType="TextBox">
