@@ -5,6 +5,17 @@ namespace PlateChanges.Common
 {
     internal static class Utils
     {
+        #region Convert
+
+        internal static double ConvertINToFT(double INDim)
+        {
+            double convert = INDim / 12;
+
+            return convert;
+        }
+
+        #endregion
+
         #region Levels
 
         public static List<Level> GetAllLevels(Document curDoc)

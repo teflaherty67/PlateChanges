@@ -28,7 +28,7 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Left">
-            <Label Content="Enter plate adjustments in feet:"/>
+            <Label Content="Enter plate adjustments in decimal inches:"/>
             <Label Content="(Use + to raise, - to lower)" FontSize="10" Foreground="Gray"/>
         </StackPanel>
 

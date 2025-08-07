@@ -81,7 +81,16 @@ namespace PlateChanges
 
                 else
                 {
-                   // notify the user
+                    // alert the user
+                    // if adjustments cause violaitons of the level order, warn the user
+                    TaskDialog tdViolations = new TaskDialog("Warning");
+                    tdViolations.MainIcon = Icon.TaskDialogIconWarning;
+                    tdViolations.Title = "Plate Changes";
+                    tdViolations.TitleAutoPrefix = false;
+                    tdViolations.MainContent = violations;
+                    tdViolations.CommonButtons = TaskDialogCommonButtons.Ok & TaskDialogCommonButtons.Cancel;
+
+                    TaskDialogResult tdVio9lationsRes = tdViolations.Show();
                 }
             }
 
@@ -90,9 +99,64 @@ namespace PlateChanges
 
         private bool ValidateElevationOrder(Dictionary<Level, double> levelAdjustments, out string violations)
         {
-            // Your validation logic here
-            violations = ""; // Set this to your violation message
-            return true; // or false if violations found
+            violations = "";
+            List<string> violationList = new List<string>();
+
+            // Step 1: Calculate new elevations for all levels with adjustments
+            Dictionary<Level, double> newElevations = new Dictionary<Level, double>();
+            foreach (var kvp in levelAdjustments)
+            {
+                newElevations[kvp.Key] = kvp.Key.Elevation + kvp.Value;
+            }
+
+            // Step 2: Check all pairs of levels to maintain current relationships
+            foreach (var level1 in levelAdjustments.Keys)
+            {
+                foreach (var level2 in levelAdjustments.Keys)
+                {
+                    if (level1 != level2)
+                    {
+                        // Get current relationship
+                        bool level1WasLower = level1.Elevation < level2.Elevation;
+
+                        // Get new relationship
+                        bool level1WillBeLower = newElevations[level1] < newElevations[level2];
+
+                        // Check if relationship will change (level1 was lower but will now be higher)
+                        if (level1WasLower && !level1WillBeLower)
+                        {
+                            violationList.Add($"{level1.Name} ({FormatElevation(newElevations[level1])}) would be higher than {level2.Name} ({FormatElevation(newElevations[level2])})");
+                        }
+                    }
+                }
+            }
+
+            // Step 3: Build violation message
+            if (violationList.Count > 0)
+            {
+                violations = "Based on the level adjustments provided, " + string.Join(", and ", violationList) +
+                            ". Do you want to proceed?";
+                return false;
+            }
+
+            return true;
+        }
+
+        // Helper method to format elevation in feet and inches
+        private string FormatElevation(double elevationInFeet)
+        {
+            int feet = (int)elevationInFeet;
+            double inches = (elevationInFeet - feet) * 12;
+            int wholeInches = (int)inches;
+            double fractionalInches = inches - wholeInches;
+
+            // Convert fractional inches to nearest 1/8"
+            int eighths = (int)Math.Round(fractionalInches * 8);
+
+            if (eighths == 0)
+                return $"{feet}'-{wholeInches}\"";
+            else
+                return $"{feet}'-{wholeInches} {eighths}/8\"";
         }
 
         internal static PushButtonData GetButtonData()
