@@ -41,9 +41,24 @@ namespace PlateChanges
             GenerateLevelControls();
         }
 
+        public frmPlateChanges(List<Level> levels, Dictionary<Level, double> previousValues)
+        {
+            // store passed data
+            Levels = levels;
+
+            // store previous values
+            var savedValues = previousValues;
+
+            // intialize the XAML controls
+            InitializeComponent();
+
+            // generate level controls
+            GenerateLevelControls(savedValues);
+        }
+
         #region Dynamic Controls
 
-        private void GenerateLevelControls()
+        private void GenerateLevelControls(Dictionary<Level, double> savedValues = null)
         {
             // loop through the levels and create a control for each level
             foreach (Level curLevel in Levels)
